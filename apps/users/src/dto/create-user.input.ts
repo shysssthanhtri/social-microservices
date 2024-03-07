@@ -1,9 +1,5 @@
-import { Field, InputType } from '@nestjs/graphql';
-import { IsEmail } from 'class-validator';
+import { InputType, PickType } from '@nestjs/graphql';
+import { User } from 'apps/users/src/entities/user.entity';
 
 @InputType()
-export class CreateUserInput {
-  @Field()
-  @IsEmail()
-  email: string;
-}
+export class CreateUserInput extends PickType(User, ['email'], InputType) {}

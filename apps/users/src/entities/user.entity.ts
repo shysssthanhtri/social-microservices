@@ -1,5 +1,6 @@
 import { Directive, Field, ID, ObjectType } from '@nestjs/graphql';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { IsEmail } from 'class-validator';
 import { HydratedDocument } from 'mongoose';
 
 @ObjectType()
@@ -9,8 +10,9 @@ export class User {
   @Field(() => ID)
   id: string;
 
-  @Field()
   @Prop({ required: true })
+  @IsEmail()
+  @Field()
   email: string;
 }
 

@@ -1,5 +1,6 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { IsString, MaxLength, MinLength } from 'class-validator';
 import { HydratedDocument } from 'mongoose';
 
 @ObjectType()
@@ -10,6 +11,9 @@ export class Post {
 
   @Field()
   @Prop({ required: true })
+  @IsString()
+  @MinLength(3)
+  @MaxLength(20)
   body: string;
 }
 

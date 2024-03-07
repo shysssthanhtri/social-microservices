@@ -1,11 +1,5 @@
-import { Field, InputType } from '@nestjs/graphql';
-import { IsString, MaxLength, MinLength } from 'class-validator';
+import { InputType, PickType } from '@nestjs/graphql';
+import { Post } from 'apps/posts/src/entities/post.entity';
 
 @InputType()
-export class CreatePostInput {
-  @Field()
-  @IsString()
-  @MinLength(3)
-  @MaxLength(20)
-  body: string;
-}
+export class CreatePostInput extends PickType(Post, ['body'], InputType) {}
