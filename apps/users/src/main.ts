@@ -1,5 +1,5 @@
 import { NestFactory } from '@nestjs/core';
-import { GqlValidationPipe } from 'apps/users/src/pipe/graphql-validation.pipe';
+import { GqlValidationPipe } from 'apps/common/src/pipe/graphql-validation.pipe';
 import { UsersModule } from 'apps/users/src/users.module';
 
 async function bootstrap() {

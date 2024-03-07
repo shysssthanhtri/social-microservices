@@ -8,7 +8,26 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: admin
       MONGO_INITDB_ROOT_PASSWORD: admin
-      MONGO_INITDB_DATABASE: users
+      MONGO_INITDB_DATABASE: service
     volumes:
       - ./tmp/users/datadir:/data/db
       - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+    networks:
+      - users-network
+  posts-mongo:
+    image: mongo:4.4
+    container_name: posts-mongo
+    ports:
+      - "27018:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin
+      MONGO_INITDB_DATABASE: service
+    volumes:
+      - ./tmp/posts/datadir:/data/db
+      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+    networks:
+      - posts-network
+networks:
+  users-network:
+  posts-network:

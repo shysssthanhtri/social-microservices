@@ -1,10 +1,10 @@
 db.createUser({
-  user: 'users-admin',
-  pwd: 'users-admin',
+  user: 'service-admin',
+  pwd: 'service-admin',
   roles: [
     {
       role: 'readWrite',
-      db: 'users',
+      db: 'service',
     },
   ],
 });
