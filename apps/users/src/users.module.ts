@@ -5,8 +5,10 @@ import {
 } from '@nestjs/apollo';
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { CqrsModule } from '@nestjs/cqrs';
 import { GraphQLModule } from '@nestjs/graphql';
 import { MongooseModule } from '@nestjs/mongoose';
+import { CreateUserHandler } from 'apps/users/src/commands/handlers/create-user.handler';
 import { User, UserSchema } from 'apps/users/src/entities/user.entity';
 import { UsersResolver } from 'apps/users/src/graphql/users.resolver';
 import { UsersService } from 'apps/users/src/services/users.service';
@@ -32,7 +34,8 @@ import { UsersService } from 'apps/users/src/services/users.service';
       inject: [ConfigService],
     }),
     MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
+    CqrsModule,
   ],
-  providers: [UsersResolver, UsersService],
+  providers: [UsersResolver, UsersService, CreateUserHandler],
 })
 export class UsersModule {}
