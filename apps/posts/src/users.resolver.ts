@@ -7,8 +7,13 @@ import { PostsService } from 'apps/posts/src/posts.service';
 export class UsersResolver {
   constructor(private readonly postsService: PostsService) {}
 
-  @ResolveField(() => [Post])
-  posts(user: User) {
+  @ResolveField(() => [Post], { name: 'posts' })
+  getPosts(user: User) {
     return this.postsService.findByUserId(user.id);
+  }
+
+  @ResolveField(() => Number, { name: 'postCount' })
+  findPostCount(user: User) {
+    return this.postsService.findPostCount(user.id);
   }
 }

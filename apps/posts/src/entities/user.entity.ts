@@ -11,4 +11,7 @@ export class User {
 
   @Field(() => [Post])
   posts: Post[];
+
+  @Field(() => Number)
+  postCount: number;
 }

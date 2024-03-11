@@ -24,4 +24,8 @@ export class PostsService {
   findByUserId(userId: string) {
     return this.postModel.find({ userId }).exec();
   }
+
+  findPostCount(userId: string) {
+    return this.postModel.countDocuments({ userId }).exec();
+  }
 }
