@@ -20,4 +20,8 @@ export class PostsService {
   findOne(id: number) {
     return this.postModel.findById(id).exec();
   }
+
+  findByUserId(userId: string) {
+    return this.postModel.find({ userId }).exec();
+  }
 }

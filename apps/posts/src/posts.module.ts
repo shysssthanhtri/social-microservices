@@ -8,6 +8,8 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { GraphQLModule } from '@nestjs/graphql';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Post, PostSchema } from 'apps/posts/src/entities/post.entity';
+import { User } from 'apps/posts/src/entities/user.entity';
+import { UsersResolver } from 'apps/posts/src/users.resolver';
 
 import { PostsResolver } from './posts.resolver';
 import { PostsService } from './posts.service';
@@ -22,6 +24,9 @@ import { PostsService } from './posts.service';
       autoSchemaFile: {
         federation: 2,
       },
+      buildSchemaOptions: {
+        orphanedTypes: [User],
+      },
     }),
     MongooseModule.forRootAsync({
       useFactory: (configService: ConfigService) => {
@@ -34,6 +39,6 @@ import { PostsService } from './posts.service';
     }),
     MongooseModule.forFeature([{ name: Post.name, schema: PostSchema }]),
   ],
-  providers: [PostsResolver, PostsService],
+  providers: [PostsResolver, PostsService, UsersResolver],
 })
 export class PostsModule {}
