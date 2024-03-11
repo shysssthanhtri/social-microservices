@@ -11,6 +11,8 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { CreateUserHandler } from 'apps/users/src/commands/handlers/create-user.handler';
 import { User, UserSchema } from 'apps/users/src/entities/user.entity';
 import { UsersResolver } from 'apps/users/src/graphql/users.resolver';
+import { FindAllHandler } from 'apps/users/src/queries/handlers/find-all.handler';
+import { FindOneHandler } from 'apps/users/src/queries/handlers/find-one.handler';
 import { UsersService } from 'apps/users/src/services/users.service';
 
 @Module({
@@ -36,6 +38,12 @@ import { UsersService } from 'apps/users/src/services/users.service';
     MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
     CqrsModule,
   ],
-  providers: [UsersResolver, UsersService, CreateUserHandler],
+  providers: [
+    UsersResolver,
+    UsersService,
+    CreateUserHandler,
+    FindAllHandler,
+    FindOneHandler,
+  ],
 })
 export class UsersModule {}
