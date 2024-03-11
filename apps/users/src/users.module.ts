@@ -10,6 +10,7 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { MongooseModule } from '@nestjs/mongoose';
 import { CreateUserHandler } from 'apps/users/src/commands/handlers/create-user.handler';
 import { User, UserSchema } from 'apps/users/src/entities/user.entity';
+import { UserCreatedHandler } from 'apps/users/src/events/handlers/user-created.handler';
 import { UsersResolver } from 'apps/users/src/graphql/users.resolver';
 import { FindAllHandler } from 'apps/users/src/queries/handlers/find-all.handler';
 import { FindOneHandler } from 'apps/users/src/queries/handlers/find-one.handler';
@@ -44,6 +45,7 @@ import { UsersService } from 'apps/users/src/services/users.service';
     CreateUserHandler,
     FindAllHandler,
     FindOneHandler,
+    UserCreatedHandler,
   ],
 })
 export class UsersModule {}
