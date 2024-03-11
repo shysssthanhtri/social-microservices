@@ -1,7 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
-
-import { UsersResolver } from './users.resolver';
-import { UsersService } from './users.service';
+import { UsersResolver } from 'apps/users/src/graphql/users.resolver';
+import { UsersService } from 'apps/users/src/services/users.service';
 
 describe('UsersResolver', () => {
   let resolver: UsersResolver;

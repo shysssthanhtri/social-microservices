@@ -5,10 +5,9 @@ import {
   Resolver,
   ResolveReference,
 } from '@nestjs/graphql';
-
-import { CreateUserInput } from './dto/create-user.input';
-import { User } from './entities/user.entity';
-import { UsersService } from './users.service';
+import { CreateUserInput } from 'apps/users/src/dto/create-user.input';
+import { User } from 'apps/users/src/entities/user.entity';
+import { UsersService } from 'apps/users/src/services/users.service';
 
 @Resolver(() => User)
 export class UsersResolver {

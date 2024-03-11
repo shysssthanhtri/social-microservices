@@ -8,9 +8,8 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { GraphQLModule } from '@nestjs/graphql';
 import { MongooseModule } from '@nestjs/mongoose';
 import { User, UserSchema } from 'apps/users/src/entities/user.entity';
-
-import { UsersResolver } from './users.resolver';
-import { UsersService } from './users.service';
+import { UsersResolver } from 'apps/users/src/graphql/users.resolver';
+import { UsersService } from 'apps/users/src/services/users.service';
 
 @Module({
   imports: [
