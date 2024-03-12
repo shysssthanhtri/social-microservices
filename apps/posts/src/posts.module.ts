@@ -9,6 +9,7 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Post, PostSchema } from 'apps/posts/src/entities/post.entity';
 import { User } from 'apps/posts/src/entities/user.entity';
+import { PostsController } from 'apps/posts/src/posts.controller';
 import { UsersResolver } from 'apps/posts/src/users.resolver';
 
 import { PostsResolver } from './posts.resolver';
@@ -40,5 +41,6 @@ import { PostsService } from './posts.service';
     MongooseModule.forFeature([{ name: Post.name, schema: PostSchema }]),
   ],
   providers: [PostsResolver, PostsService, UsersResolver],
+  controllers: [PostsController],
 })
 export class PostsModule {}

@@ -40,10 +40,12 @@
     "posts": {
       "type": "application",
       "root": "apps/posts",
-      "entryFile": "main",
-      "sourceRoot": "apps/posts/src",
+      "entryFile": "src/main",
+      "sourceRoot": ".",
       "compilerOptions": {
-        "tsConfigPath": "apps/posts/tsconfig.app.json"
+        "tsConfigPath": "apps/posts/tsconfig.app.json",
+        "assets": ["proto/*.proto"],
+        "watchAssets": true
       }
     },
     "shared": {
