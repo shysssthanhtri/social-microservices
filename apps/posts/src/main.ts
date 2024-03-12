@@ -1,6 +1,6 @@
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
-import { MicroserviceOptions } from '@nestjs/microservices';
+import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 import { GqlValidationPipe } from '@shared/shared';
 import { PostsModule } from 'apps/posts/src/posts.module';
 import { join } from 'path';
@@ -10,7 +10,7 @@ async function bootstrap() {
   app.useGlobalPipes(new GqlValidationPipe());
 
   app.connectMicroservice<MicroserviceOptions>({
-    transport: 4,
+    transport: Transport.GRPC,
     options: {
       package: 'PostsService',
       protoPath: join(__dirname, '..', 'proto/posts.proto'),

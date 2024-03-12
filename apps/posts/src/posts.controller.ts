@@ -11,6 +11,7 @@ export class PostsController {
   async createUser(
     data: CreateUserRequest.AsObject,
   ): Promise<CreateUserResponse.AsObject> {
+    console.log({ data });
     return data;
   }
 }

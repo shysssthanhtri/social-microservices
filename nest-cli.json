@@ -22,10 +22,12 @@
     "users": {
       "type": "application",
       "root": "apps/users",
-      "entryFile": "main",
-      "sourceRoot": "apps/users/src",
+      "entryFile": "src/main",
+      "sourceRoot": ".",
       "compilerOptions": {
-        "tsConfigPath": "apps/users/tsconfig.app.json"
+        "tsConfigPath": "apps/users/tsconfig.app.json",
+        "assets": ["proto/*.proto"],
+        "watchAssets": true
       }
     },
     "gateway": {
