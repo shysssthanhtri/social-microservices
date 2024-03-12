@@ -1,35 +1,31 @@
-import { OnModuleInit } from '@nestjs/common';
+import { Inject, OnModuleInit } from '@nestjs/common';
 import { EventsHandler, IEventHandler } from '@nestjs/cqrs';
-import { Client, ClientGrpc, Transport } from '@nestjs/microservices';
-import { CreateUserInput } from 'apps/users/src/dto/create-user.input';
-import { User } from 'apps/users/src/entities/user.entity';
+import { ClientGrpc } from '@nestjs/microservices';
+import {
+  POSTS_SERVICE_PACKAGE_NAME,
+  PostsServiceClient,
+} from '@shared/shared/__generated/proto/posts';
 import { UserCreatedEvent } from 'apps/users/src/events/user-created.event';
-import { join } from 'path';
-import { Observable } from 'rxjs';
 
 @EventsHandler(UserCreatedEvent)
 export class UserCreatedHandler
   implements IEventHandler<UserCreatedEvent>, OnModuleInit
 {
-  @Client({
-    transport: Transport.GRPC,
-    options: {
-      package: 'PostsService',
-      protoPath: join(__dirname, '..', 'proto/posts.proto'),
-    },
-  })
-  private client: ClientGrpc;
+  private postsServiceClient: PostsServiceClient;
 
-  private postsService: {
-    createUser: (data: CreateUserInput) => Observable<User>;
-  };
+  constructor(@Inject(POSTS_SERVICE_PACKAGE_NAME) private client: ClientGrpc) {}
 
   onModuleInit() {
-    this.postsService =
-      this.client.getService<typeof this.postsService>('PostsService');
+    this.postsServiceClient = this.client.getService<PostsServiceClient>(
+      POSTS_SERVICE_PACKAGE_NAME,
+    );
   }
 
   handle(event: UserCreatedEvent) {
-    this.postsService.createUser(event.user).subscribe();
+    this.postsServiceClient.createUser(event.user).subscribe({
+      next: (data) => console.log({ data }),
+      error: (error) => console.error(error),
+      complete: () => console.log('done'),
+    });
   }
 }

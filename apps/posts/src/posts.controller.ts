@@ -1,16 +1,15 @@
 import { Controller } from '@nestjs/common';
-import { GrpcMethod } from '@nestjs/microservices';
-import type {
+import {
   CreateUserRequest,
   CreateUserResponse,
-} from '@shared/shared/__generated/proto/posts_pb';
+  PostsServiceController,
+  PostsServiceControllerMethods,
+} from '@shared/shared/__generated/proto/posts';
 
 @Controller()
-export class PostsController {
-  @GrpcMethod('PostsService', 'CreateUser')
-  async createUser(
-    data: CreateUserRequest.AsObject,
-  ): Promise<CreateUserResponse.AsObject> {
+@PostsServiceControllerMethods()
+export class PostsController implements PostsServiceController {
+  async createUser(data: CreateUserRequest): Promise<CreateUserResponse> {
     console.log({ data });
     return data;
   }
