@@ -8,9 +8,9 @@ import {
 } from '@nestjs/graphql';
 import { User } from 'apps/posts/src/entities/user.entity';
 
-import { CreatePostInput } from './dto/create-post.input';
-import { Post } from './entities/post.entity';
-import { PostsService } from './posts.service';
+import { CreatePostInput } from '../dto/create-post.input';
+import { Post } from '../entities/post.entity';
+import { PostsService } from '../services/posts.service';
 
 @Resolver(() => Post)
 export class PostsResolver {

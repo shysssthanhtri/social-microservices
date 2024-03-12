@@ -7,13 +7,12 @@ import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { GraphQLModule } from '@nestjs/graphql';
 import { MongooseModule } from '@nestjs/mongoose';
+import { PostsController } from 'apps/posts/src/controllers/posts.controller';
 import { Post, PostSchema } from 'apps/posts/src/entities/post.entity';
 import { User } from 'apps/posts/src/entities/user.entity';
-import { PostsController } from 'apps/posts/src/posts.controller';
-import { UsersResolver } from 'apps/posts/src/users.resolver';
-
-import { PostsResolver } from './posts.resolver';
-import { PostsService } from './posts.service';
+import { PostsResolver } from 'apps/posts/src/graphql/posts.resolver';
+import { UsersResolver } from 'apps/posts/src/graphql/users.resolver';
+import { PostsService } from 'apps/posts/src/services/posts.service';
 
 @Module({
   imports: [
