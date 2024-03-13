@@ -10,7 +10,9 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { MongooseModule } from '@nestjs/mongoose';
 import { POSTS_SERVICE_PACKAGE_NAME } from '@shared/shared/__generated/proto/posts';
+import { RabbitMQQueues } from '@shared/shared/rabbitmq/queues';
 import { CreateUserHandler } from 'apps/users/src/commands/handlers/create-user.handler';
+import { ClientModuleName } from 'apps/users/src/config/client-module';
 import { User, UserSchema } from 'apps/users/src/entities/user.entity';
 import { UserCreatedHandler } from 'apps/users/src/events/handlers/user-created.handler';
 import { UsersResolver } from 'apps/users/src/graphql/users.resolver';
@@ -50,6 +52,21 @@ import { join } from 'path';
             package: POSTS_SERVICE_PACKAGE_NAME,
             protoPath: join(__dirname, '..', 'proto/posts.proto'),
             url: `0.0.0.0:${configService.getOrThrow('POSTS_GRPC_PORT')}`,
+          },
+        }),
+        imports: [ConfigModule],
+        inject: [ConfigService],
+      },
+      {
+        name: ClientModuleName.RMQ,
+        useFactory: (configService: ConfigService) => ({
+          transport: Transport.RMQ,
+          options: {
+            urls: [configService.getOrThrow<string>('RABBITMQ_URL')],
+            queue: RabbitMQQueues.ACTIVITY,
+            queueOptions: {
+              durable: true,
+            },
           },
         }),
         imports: [ConfigModule],
