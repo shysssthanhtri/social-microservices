@@ -1,18 +1,14 @@
 import { Controller } from '@nestjs/common';
-import {
-  CreateUserRequest,
-  CreateUserResponse,
-  PostsServiceController,
-  PostsServiceControllerMethods,
-} from '@shared/shared/__generated/proto/posts';
+import { EventPattern } from '@nestjs/microservices';
+import { UserCreated } from '@shared/shared/events/user-created.event';
 import { UsersService } from 'apps/posts/src/services/users.service';
 
 @Controller()
-@PostsServiceControllerMethods()
-export class PostsController implements PostsServiceController {
+export class PostsController {
   constructor(private readonly usersService: UsersService) {}
 
-  async createUser(data: CreateUserRequest): Promise<CreateUserResponse> {
+  @EventPattern(UserCreated.name)
+  async createUser(data: UserCreated) {
     return this.usersService.create(data);
   }
 }

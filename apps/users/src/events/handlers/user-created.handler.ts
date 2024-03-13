@@ -1,6 +1,7 @@
 import { Inject, OnModuleInit } from '@nestjs/common';
 import { EventsHandler, IEventHandler } from '@nestjs/cqrs';
 import { ClientProxy } from '@nestjs/microservices';
+import { UserCreated } from '@shared/shared/events/user-created.event';
 import { ClientModuleName } from 'apps/users/src/config/client-module';
 import { UserCreatedEvent } from 'apps/users/src/events/user-created.event';
 
@@ -12,17 +13,14 @@ export class UserCreatedHandler
     @Inject(ClientModuleName.RMQ) private rabbitMQClient: ClientProxy,
   ) {}
 
-  onModuleInit() {
-    this.rabbitMQClient.connect().then(() => {
-      console.log('RMQ connected');
-    });
+  async onModuleInit() {
+    await this.rabbitMQClient.connect();
   }
 
   handle(event: UserCreatedEvent) {
-    this.rabbitMQClient.emit('user-created', event.user).subscribe({
-      next: () => {
-        console.log('User created event sent to RMQ');
-      },
-    });
+    this.rabbitMQClient.emit(
+      UserCreated.name,
+      new UserCreated(event.user.id, event.user.email),
+    );
   }
 }
