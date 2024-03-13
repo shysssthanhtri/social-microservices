@@ -9,6 +9,7 @@ export class PostsController {
 
   @EventPattern(UserCreated.name)
   async createUser(data: UserCreated) {
+    console.log({ data });
     return this.usersService.create(data);
   }
 }

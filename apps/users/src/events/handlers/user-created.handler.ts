@@ -11,6 +11,7 @@ export class UserCreatedHandler
 {
   constructor(
     @Inject(ClientModuleName.RMQ) private rabbitMQClient: ClientProxy,
+    @Inject(ClientModuleName.NATS) private natsClient: ClientProxy,
   ) {}
 
   async onModuleInit() {
@@ -19,6 +20,10 @@ export class UserCreatedHandler
 
   handle(event: UserCreatedEvent) {
     this.rabbitMQClient.emit(
+      UserCreated.name,
+      new UserCreated(event.user.id, event.user.email),
+    );
+    this.natsClient.emit(
       UserCreated.name,
       new UserCreated(event.user.id, event.user.email),
     );

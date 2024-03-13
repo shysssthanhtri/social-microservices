@@ -72,6 +72,17 @@ import { join } from 'path';
         imports: [ConfigModule],
         inject: [ConfigService],
       },
+      {
+        name: ClientModuleName.NATS,
+        useFactory: (configService: ConfigService) => ({
+          transport: Transport.NATS,
+          options: {
+            servers: [configService.getOrThrow<string>('NATS_URL')],
+          },
+        }),
+        imports: [ConfigModule],
+        inject: [ConfigService],
+      },
     ]),
   ],
   providers: [
