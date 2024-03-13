@@ -26,7 +26,9 @@
       "sourceRoot": ".",
       "compilerOptions": {
         "tsConfigPath": "apps/users/tsconfig.app.json",
-        "assets": ["proto/*.proto"],
+        "assets": [
+          "proto/*.proto"
+        ],
         "watchAssets": true
       }
     },
@@ -46,7 +48,9 @@
       "sourceRoot": ".",
       "compilerOptions": {
         "tsConfigPath": "apps/posts/tsconfig.app.json",
-        "assets": ["proto/*.proto"],
+        "assets": [
+          "proto/*.proto"
+        ],
         "watchAssets": true
       }
     },
@@ -57,6 +61,15 @@
       "sourceRoot": "libs/shared/src",
       "compilerOptions": {
         "tsConfigPath": "libs/shared/tsconfig.lib.json"
+      }
+    },
+    "activities": {
+      "type": "application",
+      "root": "apps/activities",
+      "entryFile": "main",
+      "sourceRoot": "apps/activities/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/activities/tsconfig.app.json"
       }
     }
   }
