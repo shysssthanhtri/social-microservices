@@ -6,12 +6,17 @@ import {
 } from '@nestjs/apollo';
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { CqrsModule } from '@nestjs/cqrs';
 import { GraphQLModule } from '@nestjs/graphql';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Post, PostSchema } from 'apps/posts/src/entities/post.entity';
 import { User, UserSchema } from 'apps/posts/src/entities/user.entity';
 import { PostsResolver } from 'apps/posts/src/graphql/posts.resolver';
 import { UsersResolver } from 'apps/posts/src/graphql/users.resolver';
+import { FindAllHandler } from 'apps/posts/src/queries/handlers/find-all.handler';
+import { FindByUserIdHandler } from 'apps/posts/src/queries/handlers/find-by-user-id.handler';
+import { FindOneHandler } from 'apps/posts/src/queries/handlers/find-one.handler';
+import { FindPostCountHandler } from 'apps/posts/src/queries/handlers/find-post-count.handler';
 import { PostsService } from 'apps/posts/src/services/posts.service';
 import { UsersService } from 'apps/posts/src/services/users.service';
 
@@ -61,8 +66,18 @@ import { UsersService } from 'apps/posts/src/services/users.service';
       imports: [ConfigModule],
       inject: [ConfigService],
     }),
+    CqrsModule,
   ],
-  providers: [PostsResolver, PostsService, UsersResolver, UsersService],
+  providers: [
+    PostsResolver,
+    PostsService,
+    UsersResolver,
+    UsersService,
+    FindAllHandler,
+    FindOneHandler,
+    FindByUserIdHandler,
+    FindPostCountHandler,
+  ],
   controllers: [],
 })
 export class PostsModule {}
