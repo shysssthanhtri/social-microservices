@@ -1,28 +1,48 @@
 name: CI
 on:
-    push:
-        branches:
-            - '*'
+  push:
+    branches:
+      - '*'
 
 jobs:
-    CI:
-        runs-on: ubuntu-latest
+  CI:
+    runs-on: ubuntu-latest
 
-        strategy:
-            matrix:
-              node-version: ['18.x', '20.x']
-              pnpm-version: ['8.x']
+    strategy:
+      matrix:
+        node-version: ['20.x']
+        pnpm-version: ['8.x']
 
-        steps:
-            - name: Checkout
-              uses: actions/checkout@v4
-            
-            - name: Set up Node.js
-              uses: actions/setup-node@v4
-              with:
-                node-version: ${{ matrix.node-version }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
 
-            - name: Setup pnpm
-              uses: pnpm/action-setup@v3
-              with:
-                version: ${{ matrix.pnpm-version }}
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: ${{ matrix.pnpm-version }}
+          run_install: |
+            - recursive: true
+              args: [--frozen-lockfile, --strict-peer-dependencies]
+            - args: [--global, gulp, prettier, typescript]
+
+      - name: Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      - uses: actions/cache@v3
+        name: Setup pnpm cache
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Install dependencies
+        run: pnpm install
