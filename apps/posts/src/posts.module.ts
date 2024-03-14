@@ -9,8 +9,10 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { CqrsModule } from '@nestjs/cqrs';
 import { GraphQLModule } from '@nestjs/graphql';
 import { MongooseModule } from '@nestjs/mongoose';
+import { CreatePostHandler } from 'apps/posts/src/commands/handlers/create-post.handler';
 import { Post, PostSchema } from 'apps/posts/src/entities/post.entity';
 import { User, UserSchema } from 'apps/posts/src/entities/user.entity';
+import { PostCreatedHandler } from 'apps/posts/src/events/handlers/post-created.handler';
 import { PostsResolver } from 'apps/posts/src/graphql/posts.resolver';
 import { UsersResolver } from 'apps/posts/src/graphql/users.resolver';
 import { FindAllHandler } from 'apps/posts/src/queries/handlers/find-all.handler';
@@ -77,6 +79,8 @@ import { UsersService } from 'apps/posts/src/services/users.service';
     FindOneHandler,
     FindByUserIdHandler,
     FindPostCountHandler,
+    CreatePostHandler,
+    PostCreatedHandler,
   ],
   controllers: [],
 })
