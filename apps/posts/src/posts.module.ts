@@ -13,6 +13,7 @@ import { CreatePostHandler } from 'apps/posts/src/commands/handlers/create-post.
 import { Post, PostSchema } from 'apps/posts/src/entities/post.entity';
 import { User, UserSchema } from 'apps/posts/src/entities/user.entity';
 import { PostCreatedHandler } from 'apps/posts/src/events/handlers/post-created.handler';
+import { UserCreatedHandler } from 'apps/posts/src/events/handlers/user-created.handler';
 import { PostsResolver } from 'apps/posts/src/graphql/posts.resolver';
 import { UsersResolver } from 'apps/posts/src/graphql/users.resolver';
 import { FindAllHandler } from 'apps/posts/src/queries/handlers/find-all.handler';
@@ -20,7 +21,6 @@ import { FindByUserIdHandler } from 'apps/posts/src/queries/handlers/find-by-use
 import { FindOneHandler } from 'apps/posts/src/queries/handlers/find-one.handler';
 import { FindPostCountHandler } from 'apps/posts/src/queries/handlers/find-post-count.handler';
 import { PostsService } from 'apps/posts/src/services/posts.service';
-import { UsersService } from 'apps/posts/src/services/users.service';
 
 @Module({
   imports: [
@@ -74,7 +74,7 @@ import { UsersService } from 'apps/posts/src/services/users.service';
     PostsResolver,
     PostsService,
     UsersResolver,
-    UsersService,
+    UserCreatedHandler,
     FindAllHandler,
     FindOneHandler,
     FindByUserIdHandler,

@@ -5,7 +5,7 @@ import { User, UserDocument } from 'apps/posts/src/entities/user.entity';
 import { Model } from 'mongoose';
 
 @Injectable()
-export class UsersService {
+export class UserCreatedHandler {
   constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {}
 
   @RabbitSubscribe({
