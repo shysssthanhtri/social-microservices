@@ -50,3 +50,6 @@ jobs:
 
       - name: Build applications
         run: pnpm build ${{ matrix.applications }}
+
+      - name: Lint
+        run: pnpm lint

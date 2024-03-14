@@ -31,7 +31,7 @@
     "posts": {
       "type": "application",
       "root": "apps/posts",
-      "entryFile": "src/main",
+      "entryFile": "main",
       "sourceRoot": "apps/posts/src",
       "compilerOptions": {
         "tsConfigPath": "apps/posts/tsconfig.app.json"
