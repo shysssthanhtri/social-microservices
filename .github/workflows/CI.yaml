@@ -1,0 +1,28 @@
+name: CI
+on:
+    push:
+        branches:
+            - '*'
+
+jobs:
+    CI:
+        runs-on: ubuntu-latest
+
+        strategy:
+            matrix:
+              node-version: ['18.x', '20.x']
+              pnpm-version: ['8.x']
+
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+            
+            - name: Set up Node.js
+              uses: actions/setup-node@v4
+              with:
+                node-version: ${{ matrix.node-version }}
+
+            - name: Setup pnpm
+              uses: pnpm/action-setup@v3
+              with:
+                version: ${{ matrix.pnpm-version }}
