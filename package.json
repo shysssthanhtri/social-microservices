@@ -25,6 +25,7 @@
     "@apollo/gateway": "^2.7.1",
     "@apollo/server": "^4.10.1",
     "@apollo/subgraph": "^2.7.1",
+    "@golevelup/nestjs-rabbitmq": "^5.1.0",
     "@grpc/grpc-js": "^1.10.2",
     "@grpc/proto-loader": "^0.7.10",
     "@nestjs/apollo": "^12.1.0",

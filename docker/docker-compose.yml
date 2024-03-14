@@ -41,16 +41,7 @@ services:
       - ./tmp/rabbitmq/data:/var/lib/rabbitmq
     networks:
       - social-rabbitmq
-  social-nats:
-    image: nats:alpine
-    container_name: social-nats
-    ports:
-      - "4222:4222"
-      - "8222:8222"
-    networks:
-      - social-nats
 networks:
   users-network:
   posts-network:
   social-rabbitmq:
-  social-nats:

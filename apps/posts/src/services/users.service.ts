@@ -1,3 +1,4 @@
+import { RabbitSubscribe } from '@golevelup/nestjs-rabbitmq';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { CreateUserRequest } from '@shared/shared/__generated/proto/posts';
@@ -8,11 +9,16 @@ import { Model } from 'mongoose';
 export class UsersService {
   constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {}
 
-  create(createPostInput: CreateUserRequest): Promise<User> {
+  @RabbitSubscribe({
+    exchange: 'activities-exchange',
+    routingKey: 'users.created',
+    queue: 'posts-service-queue',
+  })
+  async create(createPostInput: CreateUserRequest) {
     const post = new this.userModel({
       ...createPostInput,
       _id: createPostInput.id,
     });
-    return post.save();
+    await post.save();
   }
 }
