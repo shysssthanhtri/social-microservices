@@ -1,15 +1,16 @@
-import { Field, ID, ObjectType } from '@nestjs/graphql';
+import { Field, ObjectType } from '@nestjs/graphql';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import {
+  AbstractEntity,
+  AbstractEntitySchema,
+} from '@shared/shared/abstract/abstract-entity';
 import { User } from 'apps/posts/src/entities/user.entity';
 import { IsString, MaxLength, MinLength } from 'class-validator';
 import { HydratedDocument } from 'mongoose';
 
 @ObjectType()
 @Schema()
-export class Post {
-  @Field(() => ID)
-  id: string;
-
+export class Post extends AbstractEntity {
   @Field()
   @Prop({ required: true })
   @IsString()
@@ -27,4 +28,5 @@ export class Post {
 }
 
 export type PostDocument = HydratedDocument<Post>;
-export const PostSchema = SchemaFactory.createForClass(Post);
+export const PostSchema =
+  SchemaFactory.createForClass(Post).add(AbstractEntitySchema);

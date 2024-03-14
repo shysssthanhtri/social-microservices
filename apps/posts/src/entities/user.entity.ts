@@ -10,7 +10,6 @@ import { HydratedDocument } from 'mongoose';
 @Schema()
 export class User {
   @Field(() => ID)
-  @Directive('@external')
   id: string;
 
   @Field(() => [Post])
